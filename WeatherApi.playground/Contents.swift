@@ -51,26 +51,20 @@ let searchCityTask = URLSession.shared.dataTask(with: URL(string: cityToLngAndLa
   
 
   struct WeatherForecast: Decodable {
-    let hourly: Temperature_2m
+    let hourly: HourlyTemp
     
     enum CodingKeys : String, CodingKey {
       case hourly = "hourly"
     }
   }
 
-  struct Temperature_2m: Decodable {
+  struct HourlyTemp: Decodable {
     let temperature_2m: [Float]
+    let code: [Int]
 
     enum CodingKeys : String, CodingKey {
       case temperature_2m
-    }
-  }
-
-  struct HourlyTemp: Decodable {
-    let hourly: Float
-
-    enum CodingKeys : String, CodingKey {
-      case hourly = "hourly"
+      case code = "weathercode"
     }
   }
 
@@ -86,21 +80,37 @@ let searchCityTask = URLSession.shared.dataTask(with: URL(string: cityToLngAndLa
       return
   }
     
-    var day1: [Float] = Array(result.hourly.temperature_2m[0...23])
-    var day2: [Float] = Array(result.hourly.temperature_2m[24...47])
-    var day3: [Float] = Array(result.hourly.temperature_2m[48...71])
-    var day4: [Float] = Array(result.hourly.temperature_2m[72...95])
-    var day5: [Float] = Array(result.hourly.temperature_2m[96...119])
-    var day6: [Float] = Array(result.hourly.temperature_2m[120...143])
-    var day7: [Float] = Array(result.hourly.temperature_2m[144...167])
+    var day1Temp: [Float] = Array(result.hourly.temperature_2m[0...23])
+    var day2Temp: [Float] = Array(result.hourly.temperature_2m[24...47])
+    var day3Temp: [Float] = Array(result.hourly.temperature_2m[48...71])
+    var day4Temp: [Float] = Array(result.hourly.temperature_2m[72...95])
+    var day5Temp: [Float] = Array(result.hourly.temperature_2m[96...119])
+    var day6Temp: [Float] = Array(result.hourly.temperature_2m[120...143])
+    var day7Temp: [Float] = Array(result.hourly.temperature_2m[144...167])
     
-    print("Temperature of day1 is\n \(day1)")
-    print("Temperature of day2 is\n \(day2)")
-    print("Temperature of day3 is\n \(day3)")
-    print("Temperature of day4 is\n \(day4)")
-    print("Temperature of day5 is\n \(day5)")
-    print("Temperature of day6 is\n \(day6)")
-    print("Temperature of day7 is\n \(day7)")
+    print("Temperature of day1 is\n \(day1Temp)")
+    print("Temperature of day2 is\n \(day2Temp)")
+    print("Temperature of day3 is\n \(day3Temp)")
+    print("Temperature of day4 is\n \(day4Temp)")
+    print("Temperature of day5 is\n \(day5Temp)")
+    print("Temperature of day6 is\n \(day6Temp)")
+    print("Temperature of day7 is\n \(day7Temp)")
+    
+    var day1Code: [Int] = Array(result.hourly.code[0...23])
+    var day2Code: [Int] = Array(result.hourly.code[24...47])
+    var day3Code: [Int] = Array(result.hourly.code[48...71])
+    var day4Code: [Int] = Array(result.hourly.code[72...95])
+    var day5Code: [Int] = Array(result.hourly.code[96...119])
+    var day6Code: [Int] = Array(result.hourly.code[120...143])
+    var day7Code: [Int] = Array(result.hourly.code[144...167])
+    
+    print("Weather code of day1 is\n \(day1Code)")
+    print("Weather code of day2 is\n \(day2Code)")
+    print("Weather code of day3 is\n \(day3Code)")
+    print("Weather code of day4 is\n \(day4Code)")
+    print("Weather code of day5 is\n \(day5Code)")
+    print("Weather code of day6 is\n \(day6Code)")
+    print("Weather code of day7 is\n \(day7Code)")
   }
 
   searchWeatherTask.resume()
