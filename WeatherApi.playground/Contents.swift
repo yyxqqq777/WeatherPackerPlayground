@@ -41,13 +41,14 @@ let searchCityTask = URLSession.shared.dataTask(with: URL(string: cityToLngAndLa
 }
 
 
-  print("- \(result.citys[0].latitude)")
-  print("- \(result.citys[0].longitude)")
+  print("Latitude of \(city) is \(result.citys[0].latitude)")
+  print("Longitude of \(city) \(result.citys[0].longitude)")
   lat = result.citys[0].latitude
   lng = result.citys[0].longitude
 
   
-  let weatherForcastUrl = "https://api.open-meteo.com/v1/forecast?latitude=\(lat)&longitude=\(lng)&hourly=temperature_2m"
+  let weatherForcastUrl = "https://api.open-meteo.com/v1/forecast?latitude=\(lat)&longitude=\(lng)&hourly=temperature_2m&hourly=weathercode"
+  
 
   struct WeatherForecast: Decodable {
     let hourly: Temperature_2m
@@ -84,15 +85,22 @@ let searchCityTask = URLSession.shared.dataTask(with: URL(string: cityToLngAndLa
       print("Error: Couldn't decode data into a result")
       return
   }
-
-    print("- \(result.hourly.temperature_2m)")
-    var day1: [Float] = Array(result.hourly.temperature_2m[0...7])
-    var day2: [Float] = Array(result.hourly.temperature_2m[7...14])
-    var day3: [Float] = Array(result.hourly.temperature_2m[14...21])
-    var day4: [Float] = Array(result.hourly.temperature_2m[21...28])
-    var day5: [Float] = Array(result.hourly.temperature_2m[28...35])
-    var day6: [Float] = Array(result.hourly.temperature_2m[35...42])
-    var day7: [Float] = Array(result.hourly.temperature_2m[42...49])
+    
+    var day1: [Float] = Array(result.hourly.temperature_2m[0...23])
+    var day2: [Float] = Array(result.hourly.temperature_2m[24...47])
+    var day3: [Float] = Array(result.hourly.temperature_2m[48...71])
+    var day4: [Float] = Array(result.hourly.temperature_2m[72...95])
+    var day5: [Float] = Array(result.hourly.temperature_2m[96...119])
+    var day6: [Float] = Array(result.hourly.temperature_2m[120...143])
+    var day7: [Float] = Array(result.hourly.temperature_2m[144...167])
+    
+    print("Temperature of day1 is\n \(day1)")
+    print("Temperature of day2 is\n \(day2)")
+    print("Temperature of day3 is\n \(day3)")
+    print("Temperature of day4 is\n \(day4)")
+    print("Temperature of day5 is\n \(day5)")
+    print("Temperature of day6 is\n \(day6)")
+    print("Temperature of day7 is\n \(day7)")
   }
 
   searchWeatherTask.resume()
